@@ -1,23 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace JobTracking.Models
+namespace JobApplication.Models
 {
-
     public enum JobStatus
     {
-        Assigned,
-        InProgress,
-        OnHold,
-        Completed,
-        Cancelled,
-    }
-    
-    public enum JobPriority
-    {
-        Low,
-        Normal,
-        High
+        Draft,
+        Open,
+        Filled,
+        Closed,
+        Cancelled
     }
     
     public class Job
@@ -29,31 +23,27 @@ namespace JobTracking.Models
         [StringLength(100)]
         public string Title { get; set; }
         
-        [StringLength(500)]
-        public string Description { get; set; }
+        [StringLength(100)]
+        public string Location { get; set; }
+        
+        [Range(0, double.MaxValue)]
+        public decimal? SalaryMin { get; set; }
+        
+        [Range(0, double.MaxValue)]
+        public decimal? SalaryMax { get; set; }
+        
+        public DateTime PostedDate { get; set; }
+        
+        public DateTime? ClosingDate { get; set; }
         
         [Required]
-        public DateTime CreatedDate { get; set; }
+        public JobStatus Status { get; set; } = JobStatus.Open;
         
-        public DateTime? StartDate { get; set; }
+        public int? HiringManagerId { get; set; }
         
-        public DateTime? DueDate { get; set; }
+        [ForeignKey("HiringManagerId")]
+        public virtual User HiringManager { get; set; }
         
-        public DateTime? CompletedDate { get; set; }
-        
-        [Required]
-        public JobStatus Status { get; set; }
-        
-        [Required]
-        public JobPriority Priority { get; set; }
-
-        public decimal? Cost { get; set; }
-        
-        [ForeignKey("Customer")]
-        public int? CustomerId { get; set; }
-        public virtual Customer Customer { get; set; }
-        
-        public virtual ICollection<JobTaskModel> Tasks { get; set; }
-        
+        public virtual ICollection<JobApplication> Applications { get; set; }
     }
 }
