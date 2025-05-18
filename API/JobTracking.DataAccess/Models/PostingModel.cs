@@ -78,6 +78,6 @@ namespace JobApplication.Models
         [StringLength(100)]
         public string EducationRequired { get; set; }
         
-        public virtual ICollection<JobApplication> Applications { get; set; }
+        public virtual ICollection<Application> Applications { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JobApplication.Models
 {
-    public class JobApplication
+    public class Application
     {
         [Key]
         public int ApplicationId { get; set; }

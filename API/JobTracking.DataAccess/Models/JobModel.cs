@@ -44,6 +44,6 @@ namespace JobApplication.Models
         [ForeignKey("HiringManagerId")]
         public virtual User HiringManager { get; set; }
         
-        public virtual ICollection<JobApplication> Applications { get; set; }
+        public virtual ICollection<Application> Applications { get; set; }
     }
 }
