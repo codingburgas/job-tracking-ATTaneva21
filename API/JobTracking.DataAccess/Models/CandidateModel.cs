@@ -7,8 +7,6 @@ namespace JobApplication.Models
 {
     public class Candidate : User
     {
-        [Key]
-        public int CandidateId { get; set; }
         
         public string CurrentEmployer { get; set; }
         

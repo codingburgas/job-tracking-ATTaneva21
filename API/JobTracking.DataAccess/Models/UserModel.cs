@@ -7,7 +7,7 @@ namespace JobApplication.Models
 {
     public class User
     {
-        [Key] public int UserId { get; set; }
+        [Key] public int Id { get; set; }
 
         [Required] [StringLength(50)] public string FirstName { get; set; }
 
