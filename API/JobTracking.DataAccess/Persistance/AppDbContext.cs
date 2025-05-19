@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace JobTracking.DataAccess;
+namespace JobTracking.DataAccess.Persistance;
 
 public class AppDbContext : DbContext
 {

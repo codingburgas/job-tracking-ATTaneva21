@@ -1,4 +1,5 @@
 ﻿using System;
+using JobTracking.DataAccess;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable

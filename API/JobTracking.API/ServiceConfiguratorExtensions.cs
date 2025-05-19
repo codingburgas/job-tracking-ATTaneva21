@@ -4,10 +4,12 @@
     {
         public static void AddContext(this WebApplicationBuilder builder)
         {
-            //builder.Services.AddDbContext<HrManagementContext>(options =>
-            //{
-            //    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-            //});
+            
+            
+           /* builder.Services.<HrManagementContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });*/
         }
  
         public static void AddIdentity(this WebApplicationBuilder builder)
