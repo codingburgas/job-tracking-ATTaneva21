@@ -1,4 +1,4 @@
-﻿using JobApplication.Models;
+﻿using JobTracking.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -9,8 +9,6 @@ public class AppDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Job> Jobs { get; set; }
     public DbSet<Application> JobApplications { get; set; }
-    public DbSet<CandidateEducation> Educations { get; set; }
-    public DbSet<JobPosting> Postings { get; set; }
     public DbSet<Candidate> Candidates { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

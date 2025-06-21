@@ -1,9 +1,9 @@
 using JobTracking.DataAccess.Persistance;
 namespace JobTracking.Application.Contracts.Base;
 
-public class DependancyProvider
+public class DependencyProvider
 {
-    public DependancyProvider(AppDbContext dbContext)
+    public DependencyProvider(AppDbContext dbContext)
     {
         Db = dbContext;
     }

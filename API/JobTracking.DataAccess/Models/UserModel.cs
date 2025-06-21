@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace JobApplication.Models
+namespace JobTracking.Models
 {
     public class User
     {
@@ -40,8 +40,8 @@ namespace JobApplication.Models
 
         public UserRole Role { get; set; } = UserRole.Candidate;
 
-        public virtual ICollection<Application> Applications { get; set; }
-        public virtual ICollection<Job> ManagedJobs { get; set; }
+        public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
+        public virtual ICollection<Job> ManagedJobs { get; set; } = new List<Job>();
     }
 
     public enum UserRole

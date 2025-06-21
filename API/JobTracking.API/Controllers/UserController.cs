@@ -1,5 +1,9 @@
-using Microsoft.AspNetCore.Http.HttpResults;
+using JobTracking.Application.Contracts;
+using JobTracking.Domain.DTOs;
+using JobTracking.Domain.Filters;
+using JobTracking.Domain.Filters.Base;
 using Microsoft.AspNetCore.Mvc;
+using Filters_CandidateFilter = JobTracking.Domain.Filters.CandidateFilter;
 
 namespace JobTracking.API.Controllers;
 
@@ -14,11 +18,7 @@ public class UserController : ControllerBase
         _userService = userService ?? throw new ArgumentNullException(nameof(userService));
     }
 
-    /// <summary>
-    /// Gets a user by ID
-    /// </summary>
-    /// <param name="id">The user ID</param>
-    /// <returns>The user details</returns>
+    
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetUser(int id)
     {
@@ -40,15 +40,11 @@ public class UserController : ControllerBase
         }
         catch (Exception ex)
         {
-            // Log the exception here
             return StatusCode(500, "An error occurred while retrieving the user");
         }
     }
 
-    /// <summary>
-    /// Gets all users
-    /// </summary>
-    /// <returns>List of all users</returns>
+   
     [HttpGet]
     public async Task<IActionResult> GetAllUsers()
     {
@@ -59,13 +55,12 @@ public class UserController : ControllerBase
         }
         catch (Exception ex)
         {
-            // Log the exception here
             return StatusCode(500, "An error occurred while retrieving users");
         }
     }
     
     [HttpPost("search")]
-    public async Task<IActionResult> GetFilteredUsers([FromBody] BaseFilter<UserFilter> userFilter)
+    public async Task<IActionResult> GetFilteredUsers([FromBody] BaseFilter<Filters_CandidateFilter> userFilter)
     {
         try
         {
@@ -79,7 +74,6 @@ public class UserController : ControllerBase
         }
         catch (Exception ex)
         {
-            // Log the exception here
             return StatusCode(500, "An error occurred while filtering users");
         }
     }
@@ -99,7 +93,7 @@ public class UserController : ControllerBase
         }
         catch (Exception ex)
         {
-            // Log the exception here
+            
             return StatusCode(500, "An error occurred while creating the user");
         }
     }
@@ -130,7 +124,6 @@ public class UserController : ControllerBase
         }
         catch (Exception ex)
         {
-            // Log the exception here
             return StatusCode(500, "An error occurred while updating the user");
         }
     }
@@ -156,7 +149,6 @@ public class UserController : ControllerBase
         }
         catch (Exception ex)
         {
-            // Log the exception here
             return StatusCode(500, "An error occurred while deleting the user");
         }
     }

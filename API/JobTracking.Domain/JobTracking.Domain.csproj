@@ -10,4 +10,8 @@
     <Folder Include="DTOs\Request\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\JobTracking.DataAccess\JobTracking.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>

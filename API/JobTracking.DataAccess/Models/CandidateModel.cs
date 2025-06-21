@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace JobApplication.Models
+namespace JobTracking.Models
 {
     public class Candidate : User
     {
@@ -30,6 +27,5 @@ namespace JobApplication.Models
         public DateTime RegistrationDate { get; set; }
         
         public virtual ICollection<Application> Applications { get; set; }
-        public virtual ICollection<CandidateEducation> Education { get; set; }
     }
 }
