@@ -12,11 +12,14 @@ namespace JobTracking.Application.Implementation;
 public class UserService : IUserService
 {
     private readonly DependencyProvider _provider;
+    private readonly IPasswordHasher<User> _passwordHasher;
 
-    public UserService(DependencyProvider provider)
+    public UserService(DependencyProvider provider, IPasswordHasher<User> passwordHasher)
     {
         _provider = provider;
+        _passwordHasher = passwordHasher;
     }
+
 
     public async Task<UserResponseDTO> GetUserAsync(int id)
     {
@@ -87,7 +90,6 @@ public class UserService : IUserService
             FirstName = dto.FirstName,
             LastName = dto.LastName,
             Email = dto.Email,
-            PasswordHash = dto.PasswordHash,
             PhoneNumber = dto.PhoneNumber,
             Address = dto.Address,
             City = dto.City,
@@ -99,6 +101,8 @@ public class UserService : IUserService
             Role = dto.Role,
             DateRegistered = DateTime.UtcNow
         };
+        
+        user.PasswordHash = _passwordHasher.HashPassword(user, dto.Password);
 
         _provider.Db.Users.Add(user);
         await _provider.Db.SaveChangesAsync();
