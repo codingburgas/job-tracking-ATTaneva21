@@ -93,8 +93,6 @@ public class UserService : IUserService
             PhoneNumber = dto.PhoneNumber,
             Address = dto.Address,
             City = dto.City,
-            ZipCode = dto.ZipCode,
-            Country = dto.Country,
             DateOfBirth = dto.DateOfBirth,
             Education = dto.Education,
             WorkExperience = dto.WorkExperience,
@@ -123,8 +121,6 @@ public class UserService : IUserService
         user.PhoneNumber = dto.PhoneNumber;
         user.Address = dto.Address;
         user.City = dto.City;
-        user.ZipCode = dto.ZipCode;
-        user.Country = dto.Country;
         user.DateOfBirth = dto.DateOfBirth;
         user.Education = dto.Education;
         user.WorkExperience = dto.WorkExperience;
@@ -159,8 +155,6 @@ public class UserService : IUserService
             PhoneNumber = user.PhoneNumber,
             Address = user.Address,
             City = user.City,
-            ZipCode = user.ZipCode,
-            Country = user.Country,
             DateOfBirth = user.DateOfBirth,
             DateRegistered = user.DateRegistered,
             Education = user.Education,
