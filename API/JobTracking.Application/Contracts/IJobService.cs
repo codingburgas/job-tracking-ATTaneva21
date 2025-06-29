@@ -9,8 +9,8 @@ namespace JobTracking.Application.Contracts
         Task<IEnumerable<JobResponseDTO>> GetAllJobsAsync();
         Task<IEnumerable<JobResponseDTO>> GetFilteredJobsAsync(JobFilter filter);
         Task<JobResponseDTO?> GetJobByIdAsync(int id);
-        Task<JobResponseDTO> CreateJobAsync(CreateJobDto createJobDto);
-        Task<JobResponseDTO?> UpdateJobAsync(int id, UpdateJobDto updateJobDto);
+        Task<JobResponseDTO> CreateJobAsync(CreateJobDTO createJobDto);
+        Task<JobResponseDTO?> UpdateJobAsync(int id, UpdateJobDTO updateJobDto);
         Task<bool> DeleteJobAsync(int id);
         Task<bool> JobExistsAsync(int id);
         Task<IEnumerable<JobResponseDTO>> GetJobsByHiringManagerAsync(int hiringManagerId);

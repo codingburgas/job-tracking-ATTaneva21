@@ -3,6 +3,7 @@ namespace JobTracking.Application.Contracts.Base;
 
 public class DependencyProvider
 {
+
     public DependencyProvider(AppDbContext dbContext)
     {
         Db = dbContext;
