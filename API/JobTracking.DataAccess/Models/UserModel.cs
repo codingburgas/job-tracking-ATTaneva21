@@ -26,10 +26,6 @@ namespace JobTracking.Models
 
         [StringLength(50)] public string City { get; set; }
 
-        [StringLength(20)] public string ZipCode { get; set; }
-
-        [StringLength(50)] public string Country { get; set; }
-
         public DateTime DateOfBirth { get; set; }
 
         public DateTime DateRegistered { get; set; }
