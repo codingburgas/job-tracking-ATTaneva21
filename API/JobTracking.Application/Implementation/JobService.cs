@@ -69,7 +69,7 @@ public class JobService : IJobService
         return job != null ? MapToResponseDto(job) : null;
     }
 
-    public async Task<JobResponseDTO> CreateJobAsync(CreateJobDTO createJobDto)
+    public async Task<JobResponseDTO> CreateJobAsync(UpdateJobDTO createJobDto)
     {
         var job = new Job
         {

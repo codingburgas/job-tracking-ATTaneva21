@@ -1,16 +1,16 @@
 using System.ComponentModel.DataAnnotations;
+using JobTracking.Models;
 
 namespace JobTracking.Domain.DTOs;
 
 public class UpdateJobDTO
 {
-    [Required]
-    [MaxLength(100)]
-    public string Title { get; set; } = string.Empty;
-
-    [MaxLength(500)]
+    public string? Title { get; set; }
     public string? Description { get; set; }
-
-    [Required]
-    public string Status { get; set; } = "Open";
+    public string? Location { get; set; }
+    public decimal? SalaryMin { get; set; }
+    public decimal? SalaryMax { get; set; }
+    public DateTime? ClosingDate { get; set; }
+    public JobStatus Status { get; set; }
+    public int? HiringManagerId { get; set; }
 }

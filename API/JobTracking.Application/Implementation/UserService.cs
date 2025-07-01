@@ -1,90 +1,30 @@
-using JobTracking.Application.Contracts;
 using JobTracking.Application.Contracts.Base;
 using JobTracking.Domain.DTOs;
-using JobTracking.Domain.Enums;
+using JobTracking.Domain.DTOs.Response;
 using JobTracking.Models;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using CandidateFilter = JobTracking.Domain.Filters.CandidateFilter;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobTracking.Application.Implementation;
 
 public class UserService : IUserService
 {
     private readonly DependencyProvider _provider;
-    private readonly IPasswordHasher<User> _passwordHasher;
 
-    public UserService(DependencyProvider provider, IPasswordHasher<User> passwordHasher)
+    public UserService(DependencyProvider provider)
     {
         _provider = provider;
-        _passwordHasher = passwordHasher;
     }
 
-
-    public async Task<UserResponseDTO> GetUserAsync(int id)
+    public async Task<UserResponseDTO?> GetUserByIdAsync(int id)
     {
         var user = await _provider.Db.Users.FindAsync(id);
-        
-        if (user == null)
-            throw new Exception("User not found");
-
-        return MapToResponseDto(user);
+        return user == null ? null : MapToDto(user);
     }
 
-    public async Task<List<UserResponseDTO>> GetAllUsersAsync()
+    public async Task<UserResponseDTO> CreateUserAsync(CreateUserDTO dto)
     {
-        var users = await _provider.Db.Users.ToListAsync();
-        return users.Select(MapToResponseDto).ToList();
-    }
-
-    public async Task<List<UserResponseDTO>> GetFilteredUsersAsync(BaseFilter<CandidateFilter> filter)
-    {
-        var query = _provider.Db.Users.AsQueryable();
-
-        if (filter.Filter != null)  
-        {
-            if (!string.IsNullOrEmpty(filter.Filter.FirstName))
-                query = query.Where(u => u.FirstName.Contains(filter.Filter.FirstName));
-                
-            if (!string.IsNullOrEmpty(filter.Filter.LastName))
-                query = query.Where(u => u.LastName.Contains(filter.Filter.LastName));
-                
-            if (!string.IsNullOrEmpty(filter.Filter.Email))
-                query = query.Where(u => u.Email.Contains(filter.Filter.Email));
-        }
-        
-        if (!string.IsNullOrEmpty(filter.SortBy))
-        {
-            switch (filter.SortBy.ToLower())
-            {
-                case "firstname":
-                    query = filter.SortDirection == SortOrderEnum.DESC 
-                        ? query.OrderByDescending(u => u.FirstName)
-                        : query.OrderBy(u => u.FirstName);
-                    break;
-                case "lastname":
-                    query = filter.SortDirection == SortOrderEnum.DESC 
-                        ? query.OrderByDescending(u => u.LastName)
-                        : query.OrderBy(u => u.LastName);
-                    break;
-                case "email":
-                    query = filter.SortDirection == SortOrderEnum.DESC 
-                        ? query.OrderByDescending(u => u.Email)
-                        : query.OrderBy(u => u.Email);
-                    break;
-                default:
-                    query = query.OrderBy(u => u.Id);
-                    break;
-            }
-        }
-        query = query.Skip((filter.Page - 1) * filter.PageSize).Take(filter.PageSize);
-
-        var users = await query.ToListAsync();
-        return users.Select(MapToResponseDto).ToList();
-    }
-
-    public async Task<UserResponseDTO> CreateUserAsync(CreateUserDto dto)
-    {
+        var hasher = new PasswordHasher<User>();
         var user = new User
         {
             FirstName = dto.FirstName,
@@ -96,55 +36,54 @@ public class UserService : IUserService
             DateOfBirth = dto.DateOfBirth,
             Education = dto.Education,
             WorkExperience = dto.WorkExperience,
-            Role = dto.Role,
+            Role = (UserRole)dto.Role,
             DateRegistered = DateTime.UtcNow
         };
         
-        user.PasswordHash = _passwordHasher.HashPassword(user, dto.Password);
+        user.PasswordHash = hasher.HashPassword(user, dto.Password);
 
         _provider.Db.Users.Add(user);
         await _provider.Db.SaveChangesAsync();
 
-        return MapToResponseDto(user);
+        return MapToDto(user);
     }
 
-    public async Task<UserResponseDTO> UpdateUserAsync(int id, UpdateUserDto dto)
+    public async Task<UserResponseDTO?> UpdateUserAsync(int id, UpdateUserDTO dto)
     {
         var user = await _provider.Db.Users.FindAsync(id);
-        
-        if (user == null)
-            throw new Exception("User not found");
+        if (user == null) return null;
 
-        user.FirstName = dto.FirstName;
-        user.LastName = dto.LastName;
-        user.Email = dto.Email;
-        user.PhoneNumber = dto.PhoneNumber;
-        user.Address = dto.Address;
-        user.City = dto.City;
-        user.DateOfBirth = dto.DateOfBirth;
-        user.Education = dto.Education;
-        user.WorkExperience = dto.WorkExperience;
-        user.Role = dto.Role;
+        user.FirstName = dto.FirstName ?? user.FirstName;
+        user.LastName = dto.LastName ?? user.LastName;
+        user.Email = dto.Email ?? user.Email;
+        user.PhoneNumber = dto.PhoneNumber ?? user.PhoneNumber;
+        user.Address = dto.Address ?? user.Address;
+        user.City = dto.City ?? user.City;
+        user.DateOfBirth = dto.DateOfBirth ?? user.DateOfBirth;
+        user.Education = dto.Education ?? user.Education;
+        user.WorkExperience = dto.WorkExperience ?? user.WorkExperience;
+        user.Role = dto.Role.HasValue ? dto.Role.Value : user.Role;  
 
         await _provider.Db.SaveChangesAsync();
-
-        return MapToResponseDto(user);
+        return MapToDto(user);
     }
 
     public async Task<bool> DeleteUserAsync(int id)
     {
         var user = await _provider.Db.Users.FindAsync(id);
-        
-        if (user == null)
-            return false;
+        if (user == null) return false;
 
         _provider.Db.Users.Remove(user);
         await _provider.Db.SaveChangesAsync();
-        
         return true;
     }
 
-    private UserResponseDTO MapToResponseDto(User user)
+    public async Task<bool> UserExistsAsync(int id)
+    {
+        return await _provider.Db.Users.AnyAsync(u => u.Id == id);
+    }
+
+    private static UserResponseDTO MapToDto(User user)
     {
         return new UserResponseDTO
         {
@@ -156,10 +95,10 @@ public class UserService : IUserService
             Address = user.Address,
             City = user.City,
             DateOfBirth = user.DateOfBirth,
-            DateRegistered = user.DateRegistered,
             Education = user.Education,
             WorkExperience = user.WorkExperience,
-            Role = user.Role.ToString()
+            Role = user.Role.ToString(),
+            DateRegistered = user.DateRegistered
         };
     }
 }

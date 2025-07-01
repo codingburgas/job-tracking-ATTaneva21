@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using JobTracking.Application.Contracts;
 using JobTracking.Domain.DTOs;
+using JobTracking.Domain.Filters;
 
 namespace JobTracking.API.Controllers;
 
@@ -30,11 +31,11 @@ public class JobsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateJobDTO dto)
+    public async Task<IActionResult> Create([FromBody] UpdateJobDTO dto)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
         var result = await _service.CreateJobAsync(dto);
-        return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
+        return CreatedAtAction(nameof(Get), new { id = result.JobId }, result);
     }
 
     [HttpPut("{id}")]
@@ -55,4 +56,12 @@ public class JobsController : ControllerBase
         var success = await _service.DeleteJobAsync(id);
         return success ? NoContent() : NotFound();
     }
+    
+    [HttpGet("filter")]
+    public async Task<IActionResult> Filter([FromQuery] JobFilter filter)
+    {
+        var result = await _service.GetFilteredJobsAsync(filter);
+        return Ok(result);
+    }
+
 }
