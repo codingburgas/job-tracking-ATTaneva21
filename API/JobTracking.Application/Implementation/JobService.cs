@@ -1,7 +1,6 @@
 using JobTracking.Application.Contracts;
 using JobTracking.Application.Contracts.Base;
 using JobTracking.Domain.DTOs;
-using JobTracking.Domain.Enums;
 using JobTracking.Domain.Filters;
 using JobTracking.Models;
 using Microsoft.EntityFrameworkCore;
