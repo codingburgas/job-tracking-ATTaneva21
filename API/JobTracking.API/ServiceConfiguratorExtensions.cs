@@ -1,12 +1,11 @@
-﻿using JobTracking.DataAccess.Persistance;
-using JobTracking.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+﻿using System.Text;
 using JobTracking.Application.Contracts;
 using JobTracking.Application.Implementation;
+using JobTracking.DataAccess;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace JobTracking.API

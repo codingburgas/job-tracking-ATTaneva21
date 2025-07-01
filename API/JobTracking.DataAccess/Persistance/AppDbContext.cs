@@ -1,26 +1,21 @@
-﻿using JobTracking.Models;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+using JobTracking.Models;
+using Microsoft.AspNetCore.Identity;
 
-namespace JobTracking.DataAccess.Persistance;
-
-public class AppDbContext : DbContext
+namespace JobTracking.DataAccess
 {
-    public DbSet<User> Users { get; set; }
-    public DbSet<Job> Jobs { get; set; }
-    public DbSet<Application> JobApplications { get; set; }
-    public DbSet<Candidate> Candidates { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public class AppDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
-        if (!optionsBuilder.IsConfigured)
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=JobTracking;Trusted_Connection=true");
         }
-    }
 
-    public override EntityEntry Add(object entity)
-    {
-        return base.Add(entity);
+        public DbSet<Job> Jobs { get; set; }
+        public DbSet<Application> JobApplications { get; set; }
+        public DbSet<Candidate> Candidates { get; set; }
+
+        
     }
 }

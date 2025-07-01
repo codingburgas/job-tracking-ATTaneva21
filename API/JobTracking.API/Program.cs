@@ -1,4 +1,4 @@
-using JobTracking.DataAccess.Persistance;
+using JobTracking.DataAccess;
 using JobTracking.Models;
 using Microsoft.EntityFrameworkCore;
 
