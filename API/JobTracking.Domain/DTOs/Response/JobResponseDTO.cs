@@ -1,4 +1,6 @@
-using JobStatus = JobTracking.Models.JobStatus;
+
+
+using JobTracking.Domain.Enums;
 
 namespace JobTracking.Domain.DTOs;
 

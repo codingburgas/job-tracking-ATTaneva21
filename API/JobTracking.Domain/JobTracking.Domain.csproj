@@ -9,11 +9,7 @@
   <ItemGroup>
     <Folder Include="DTOs\Request\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\JobTracking.DataAccess\JobTracking.DataAccess.csproj" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="8.0.0" />
   </ItemGroup>

@@ -1,7 +1,7 @@
 using JobTracking.Domain.DTOs;
 using JobTracking.Domain.DTOs.Response;
-using JobTracking.Domain.Filters;
 using JobTracking.Domain.Enums;
+using JobTracking.Domain.Filters;
 
 namespace JobTracking.Application.Contracts
 {

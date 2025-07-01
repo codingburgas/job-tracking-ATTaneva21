@@ -1,49 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using JobTracking.Domain.Enums;
+using JobTracking.Models;
+using Microsoft.AspNetCore.Identity;
 
-namespace JobTracking.Models
+public class User : IdentityUser<int>
 {
-    public class User
-    {
-        [Key] public int Id { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
 
-        [Required] [StringLength(50)] public string FirstName { get; set; }
+    public string? Address { get; set; }
+    public string? City { get; set; }
+    public DateTime DateOfBirth { get; set; }
+    public DateTime DateRegistered { get; set; } = DateTime.UtcNow;
+    public string? Education { get; set; }
+    public string? WorkExperience { get; set; }
+    public UserRole Role { get; set; } = UserRole.Candidate;
 
-        [Required] [StringLength(50)] public string LastName { get; set; }
-
-        [Required]
-        [EmailAddress]
-        [StringLength(100)]
-        public string Email { get; set; }
-
-        [Required] [StringLength(100)] public string PasswordHash { get; set; }
-
-        [Phone] [StringLength(20)] public string PhoneNumber { get; set; }
-
-        [StringLength(100)] public string Address { get; set; }
-
-        [StringLength(50)] public string City { get; set; }
-
-        public DateTime DateOfBirth { get; set; }
-
-        public DateTime DateRegistered { get; set; }
-
-        [StringLength(500)] public string Education { get; set; }
-
-        [StringLength(500)] public string WorkExperience { get; set; }
-
-        public UserRole Role { get; set; } = UserRole.Candidate;
-
-        public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
-        public virtual ICollection<Job> ManagedJobs { get; set; } = new List<Job>();
-    }
-
-    public enum UserRole
-    {
-        Candidate,
-        HiringManager,
-        Administrator
-    }
+    public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
+    public virtual ICollection<Job> ManagedJobs { get; set; } = new List<Job>();
 }

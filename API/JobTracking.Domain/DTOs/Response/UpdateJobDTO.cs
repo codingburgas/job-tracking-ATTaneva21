@@ -1,5 +1,4 @@
-using System.ComponentModel.DataAnnotations;
-using JobTracking.Models;
+using JobTracking.Domain.Enums;
 
 namespace JobTracking.Domain.DTOs;
 

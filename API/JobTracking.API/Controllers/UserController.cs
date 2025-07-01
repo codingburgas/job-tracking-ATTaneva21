@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using JobTracking.Domain.DTOs.Response;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JobTracking.API.Controllers;
 

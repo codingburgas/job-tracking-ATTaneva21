@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
 using JobTracking.Application.Contracts;
 using JobTracking.Domain.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JobTracking.API.Controllers;
 
