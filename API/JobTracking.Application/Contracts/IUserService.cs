@@ -1,15 +1,11 @@
 using JobTracking.Domain.DTOs;
-using JobTracking.Domain.Filters;
+using JobTracking.Domain.DTOs.Response;
 
-namespace JobTracking.Application.Contracts
+public interface IUserService
 {
-    public interface IUserService
-    {
-        Task<UserResponseDTO> GetUserAsync(int id);
-        Task<List<UserResponseDTO>> GetAllUsersAsync();
-        Task<List<UserResponseDTO>> GetFilteredUsersAsync(BaseFilter<CandidateFilter> filter);
-        Task<UserResponseDTO> CreateUserAsync(CreateUserDto dto);
-        Task<UserResponseDTO> UpdateUserAsync(int id, UpdateUserDto dto);
-        Task<bool> DeleteUserAsync(int id);
-    }
+    Task<UserResponseDTO?> GetUserByIdAsync(int id);
+    Task<UserResponseDTO> CreateUserAsync(CreateUserDTO dto);
+    Task<UserResponseDTO?> UpdateUserAsync(int id, UpdateUserDTO dto);
+    Task<bool> DeleteUserAsync(int id);
+    Task<bool> UserExistsAsync(int id);
 }
