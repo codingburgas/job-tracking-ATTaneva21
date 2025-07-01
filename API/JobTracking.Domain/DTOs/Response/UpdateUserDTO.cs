@@ -1,28 +1,15 @@
-using JobTracking.Models;
 using System.ComponentModel.DataAnnotations;
 
-public class UpdateUserDto
+namespace JobTracking.Domain.DTOs.Response
 {
-    [Required] [StringLength(50)] public string FirstName { get; set; } = string.Empty;
+    public class UpdateUserDTO
+    {
+        [MaxLength(100)]
+        public string? Name { get; set; }
 
-    [Required] [StringLength(50)] public string LastName { get; set; } = string.Empty;
+        [EmailAddress]
+        public string? Email { get; set; }
 
-    [Required]
-    [EmailAddress]
-    [StringLength(100)]
-    public string Email { get; set; } = string.Empty;
-
-    [Phone] [StringLength(20)] public string? PhoneNumber { get; set; }
-
-    [StringLength(200)] public string? Address { get; set; }
-
-    [StringLength(50)] public string? City { get; set; }
-
-    public DateTime DateOfBirth { get; set; }
-
-    [StringLength(1000)] public string? Education { get; set; }
-
-    [StringLength(2000)] public string? WorkExperience { get; set; }
-
-    public UserRole Role { get; set; }
+        public string? Role { get; set; }
+    }
 }
