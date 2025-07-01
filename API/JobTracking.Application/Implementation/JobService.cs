@@ -1,6 +1,7 @@
 using JobTracking.Application.Contracts;
 using JobTracking.Application.Contracts.Base;
 using JobTracking.Domain.DTOs;
+using JobTracking.Domain.Enums;
 using JobTracking.Domain.Filters;
 using JobTracking.Models;
 using Microsoft.EntityFrameworkCore;
@@ -31,31 +32,37 @@ public class JobService : IJobService
     {
         var query = _provider.Db.Jobs
             .Include(j => j.HiringManager)
-            .Include(j => j.Applications)
             .AsQueryable();
 
-        if (!string.IsNullOrEmpty(filter.Title))
-            query = query.Where(j => j.Title.Contains(filter.Title));
+        if (!string.IsNullOrWhiteSpace(filter.Filter?.TitleContains))
+        {
+            var title = filter.Filter.TitleContains;
+            query = query.Where(j => j.Title.Contains(title));
+        }
 
-        if (!string.IsNullOrEmpty(filter.Location))
-            query = query.Where(j => j.Location != null && j.Location.Contains(filter.Location));
+        if (filter.Filter?.Status is Domain.Enums.JobStatus status)
+        {
+            query = query.Where(j => j.Status == (JobStatus)status);
+        }
 
-        if (filter.SalaryMin.HasValue)
-            query = query.Where(j => j.SalaryMin >= filter.SalaryMin || j.SalaryMax >= filter.SalaryMin);
+        if (filter.Filter?.HiringManagerId is int managerId)
+        {
+            query = query.Where(j => j.HiringManagerId == managerId);
+        }
 
-        if (filter.SalaryMax.HasValue)
-            query = query.Where(j => j.SalaryMax <= filter.SalaryMax || j.SalaryMin <= filter.SalaryMax);
+        if (!string.IsNullOrEmpty(filter.SortBy))
+        {
+            query = filter.SortDirection == SortOrderEnum.Desc
+                ? query.OrderByDescending(j => EF.Property<object>(j, filter.SortBy))
+                : query.OrderBy(j => EF.Property<object>(j, filter.SortBy));
+        }
 
-        if (filter.PostedDate.HasValue)
-            query = query.Where(j => j.PostedDate >= filter.PostedDate);
-
-        if (filter.ClosingDate.HasValue)
-            query = query.Where(j => j.ClosingDate >= filter.ClosingDate);
-
-        if (filter.Status.HasValue)
-            query = query.Where(j => j.Status == filter.Status);
+        query = query
+            .Skip((filter.Page - 1) * filter.PageSize)
+            .Take(filter.PageSize);
 
         var jobs = await query.ToListAsync();
+
         return jobs.Select(MapToResponseDto).ToList();
     }
 
@@ -100,7 +107,7 @@ public class JobService : IJobService
         job.SalaryMin = updateJobDto.SalaryMin;
         job.SalaryMax = updateJobDto.SalaryMax;
         job.ClosingDate = updateJobDto.ClosingDate;
-        job.Status = updateJobDto.Status;
+        job.Status = (JobStatus)updateJobDto.Status;
         job.HiringManagerId = updateJobDto.HiringManagerId;
 
         await _provider.Db.SaveChangesAsync();
@@ -145,7 +152,7 @@ public class JobService : IJobService
         return jobs.Select(MapToResponseDto).ToList();
     }
 
-    public async Task<bool> UpdateJobStatusAsync(int id, JobTracking.Domain.Enums.JobStatus status)
+    public async Task<bool> UpdateJobStatusAsync(int id, Domain.Enums.JobStatus status)
     {
         var job = await _provider.Db.Jobs.FindAsync(id);
         if (job == null)
@@ -167,7 +174,7 @@ public class JobService : IJobService
             SalaryMax = job.SalaryMax,
             PostedDate = job.PostedDate,
             ClosingDate = job.ClosingDate,
-            Status = job.Status,
+            Status = (Domain.Enums.JobStatus)(int)job.Status,
             HiringManagerId = job.HiringManagerId,
             HiringManagerName = job.HiringManager?.FirstName + " " + job.HiringManager?.LastName,
             HiringManagerEmail = job.HiringManager?.Email ?? string.Empty,

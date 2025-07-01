@@ -37,10 +37,9 @@
             [Required]
             public JobStatus Status { get; set; } = JobStatus.Open;
             
-            public int? HiringManagerId { get; set; }
-            
             [ForeignKey("HiringManagerId")]
-            public virtual User HiringManager { get; set; }
+            public User HiringManager { get; set; }
+            public int HiringManagerId { get; set; }
             
             public virtual ICollection<Application> Applications { get; set; }
         }

@@ -1,7 +1,7 @@
 using JobTracking.Application.Contracts.Base;
 using JobTracking.Domain.DTOs;
 using JobTracking.Domain.DTOs.Response;
-using JobTracking.Models;
+using JobTracking.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,7 +36,7 @@ public class UserService : IUserService
             DateOfBirth = dto.DateOfBirth,
             Education = dto.Education,
             WorkExperience = dto.WorkExperience,
-            Role = (UserRole)dto.Role,
+            Role = dto.Role,
             DateRegistered = DateTime.UtcNow
         };
         

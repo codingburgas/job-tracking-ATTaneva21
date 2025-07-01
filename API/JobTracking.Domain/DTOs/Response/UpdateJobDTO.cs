@@ -11,5 +11,5 @@ public class UpdateJobDTO
     public decimal? SalaryMax { get; set; }
     public DateTime? ClosingDate { get; set; }
     public JobStatus Status { get; set; }
-    public int? HiringManagerId { get; set; }
+    public int HiringManagerId { get; set; }
 }
