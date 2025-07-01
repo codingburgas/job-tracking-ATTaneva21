@@ -1,9 +1,4 @@
-using JobTracking.Application.Contracts;
-using JobTracking.Application.Contracts.Base;
-using JobTracking.Application.Implementation;
 using JobTracking.DataAccess.Persistance;
-using JobTracking.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobTracking.API
@@ -22,10 +17,6 @@ namespace JobTracking.API
             
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddControllers();
-            builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-            builder.Services.AddScoped<DependencyProvider>();
-            builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IJobService, JobService>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

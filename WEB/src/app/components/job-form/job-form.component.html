@@ -1,0 +1,81 @@
+<div class="container mt-4">
+  <h2>{{ isEditMode ? 'Edit Job' : 'Create New Job' }}</h2>
+
+  <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="title" class="form-label">Job Title</label>
+          <input type="text" class="form-control" id="title" formControlName="title">
+          <div *ngIf="jobForm.get('title')?.invalid && (jobForm.get('title')?.dirty || jobForm.get('title')?.touched)"
+               class="text-danger">
+            Job title is required
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="company" class="form-label">Company</label>
+          <input type="text" class="form-control" id="company" formControlName="company">
+          <div *ngIf="jobForm.get('company')?.invalid && (jobForm.get('company')?.dirty || jobForm.get('company')?.touched)"
+               class="text-danger">
+            Company name is required
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="location" class="form-label">Location</label>
+          <input type="text" class="form-control" id="location" formControlName="location">
+          <div *ngIf="jobForm.get('location')?.invalid && (jobForm.get('location')?.dirty || jobForm.get('location')?.touched)"
+               class="text-danger">
+            Location is required
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="salaryRange" class="form-label">Salary Range</label>
+          <input type="text" class="form-control" id="salaryRange" formControlName="salaryRange">
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+      <div *ngIf="jobForm.get('description')?.invalid && (jobForm.get('description')?.dirty || jobForm.get('description')?.touched)"
+           class="text-danger">
+        Description is required
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="requirements" class="form-label">Requirements</label>
+      <textarea class="form-control" id="requirements" rows="3" formControlName="requirements"></textarea>
+      <div *ngIf="jobForm.get('requirements')?.invalid && (jobForm.get('requirements')?.dirty || jobForm.get('requirements')?.touched)"
+           class="text-danger">
+        Requirements are required
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="status" class="form-label">Status</label>
+      <select class="form-select" id="status" formControlName="status">
+        <option value="Active">Active</option>
+        <option value="OnHold">On Hold</option>
+        <option value="Closed">Closed</option>
+      </select>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary" (click)="router.navigate(['/jobs'])">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="jobForm.invalid">
+        {{ isEditMode ? 'Update Job' : 'Create Job' }}
+      </button>
+    </div>
+  </form>
+</div>
