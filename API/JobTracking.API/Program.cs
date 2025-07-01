@@ -1,6 +1,7 @@
 using JobTracking.DataAccess;
 using JobTracking.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace JobTracking.API
 {
@@ -9,22 +10,37 @@ namespace JobTracking.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-            builder.AddContext();
-            builder.AddIdentity();
-            builder.AddCors();
-            builder.AddServices();
             
-            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            
+            builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
+                {
+                    options.Password.RequireDigit = true;
+                    options.Password.RequiredLength = 6;
+                })
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+            
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
+            
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            
+            builder.AddServices(); 
 
             var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
+            
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -33,21 +49,34 @@ namespace JobTracking.API
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
-            
-            app.MapControllers();
+            app.UseCors(); 
 
+            app.UseAuthentication(); 
+            app.UseAuthorization();
+
+            app.MapControllers();
+            
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                try 
+                try
                 {
                     var context = services.GetRequiredService<AppDbContext>();
-                    context.Database.EnsureCreated(); // Creates DB if not exists
-                    
+                    context.Database.EnsureCreated();
+
                     if (!context.Jobs.Any())
                     {
-                        context.Jobs.Add(new Job { Title = "Sample Job", Status = JobStatus.Draft });
+                        context.Jobs.Add(new Job
+                        {
+                            Title = "Sample Job",
+                            Status = JobStatus.Draft,
+                            PostedDate = DateTime.UtcNow,
+                            ClosingDate = DateTime.UtcNow.AddDays(30),
+                            Location = "Remote",
+                            SalaryMin = 40000,
+                            SalaryMax = 70000
+                        });
+
                         context.SaveChanges();
                     }
                 }
@@ -57,7 +86,7 @@ namespace JobTracking.API
                     logger.LogError(ex, "An error occurred initializing the DB.");
                 }
             }
-            
+
             app.Run();
         }
     }
