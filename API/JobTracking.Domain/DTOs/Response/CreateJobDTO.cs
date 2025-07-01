@@ -1,23 +1,17 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace JobTracking.Domain.DTOs;
-
-public class CreateJobDTO
+namespace JobTracking.Domain.DTOs.Response
 {
-    [Required]
-    [StringLength(100)]
-    public string Title { get; set; }
-        
-    [StringLength(100)]
-    public string? Location { get; set; }
-        
-    [Range(0, double.MaxValue)]
-    public decimal? SalaryMin { get; set; }
-        
-    [Range(0, double.MaxValue)]
-    public decimal? SalaryMax { get; set; }
-        
-    public DateTime? ClosingDate { get; set; }
-        
-    public int? HiringManagerId { get; set; }
+    public class CreateJobDTO
+    {
+        [Required]
+        [MaxLength(100)]
+        public string Title { get; set; } = string.Empty;
+
+        [MaxLength(500)]
+        public string? Description { get; set; }
+
+        [Required]
+        public string Status { get; set; } = "Open";
+    }
 }
