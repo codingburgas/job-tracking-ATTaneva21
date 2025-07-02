@@ -22,9 +22,6 @@ namespace JobTracking.Models
         
         public DateTime ApplicationDate { get; set; }
         
-        [StringLength(1000)]
-        public string AdditionalInfo { get; set; }
-        
         public DateTime? LastUpdated { get; set; }
     }
 }
