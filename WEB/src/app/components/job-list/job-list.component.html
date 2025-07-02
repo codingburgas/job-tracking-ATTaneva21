@@ -1,4 +1,5 @@
-﻿<div class="job-list-header">
+﻿<!-- Header -->
+<div class="job-list-header">
   <div class="logo">JT</div>
   <div class="user-link">
     <a routerLink="/profile">User SecondName</a>
@@ -8,13 +9,21 @@
 <div class="job-list-container">
   <h2>Available Jobs</h2>
 
+  <div class="filter-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Search by title or location..."
+    />
+  </div>
+
   <div class="job-card" *ngFor="let job of paginatedJobs">
     <h3>{{ job.title }}</h3>
     <p>{{ job.description }}</p>
     <span class="location">{{ job.location }}</span>
   </div>
 
-  <div class="pagination">
+  <div class="pagination" *ngIf="totalPages > 1">
     <button (click)="changePage('prev')" [disabled]="currentPage === 1">Previous</button>
     <span>Page {{ currentPage }} of {{ totalPages }}</span>
     <button (click)="changePage('next')" [disabled]="currentPage === totalPages">Next</button>

@@ -26,13 +26,24 @@
   }
 }
 
+.filter-bar {
+  max-width: 600px;
+  margin: 2rem auto 1.5rem;
+  text-align: center;
 
+  input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+}
 
 .job-list-container {
   max-width: 800px;
   margin: auto;
   padding: 2rem;
-}
 
   h2 {
     text-align: center;
@@ -44,7 +55,7 @@
   .job-card {
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
     margin-bottom: 1.5rem;
 
@@ -58,6 +69,14 @@
       color: #666;
     }
   }
+
+}
+.user-link a {
+  pointer-events: auto;
+  z-index: 10;
+  position: relative;
+  cursor: pointer;
+}
 
 .pagination {
   display: flex;
@@ -86,4 +105,3 @@
     color: #a15030;
   }
 }
-

@@ -1,65 +1,44 @@
 ﻿import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-job-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './job-list.component.html',
   styleUrls: ['./job-list.component.scss']
 })
 export class JobListComponent {
-  jobs = [ {
-    title: 'Frontend Developer',
-    description: 'Create responsive web interfaces using Angular and TypeScript.',
-    location: 'Remote'
-  },
-    {
-      title: 'Backend Developer',
-      description: 'Build RESTful APIs and manage databases using .NET Core.',
-      location: 'Sofia, Bulgaria'
-    },
-    {
-      title: 'UI/UX Designer',
-      description: 'Design intuitive user experiences and interactive prototypes.',
-      location: 'Plovdiv, Bulgaria'
-    },
-    {
-      title: 'Data Analyst',
-      description: 'Analyze datasets and create dashboards for internal reporting.',
-      location: 'Varna, Bulgaria'
-    },
-    {
-      title: 'DevOps Engineer',
-      description: 'Automate deployment and manage CI/CD pipelines.',
-      location: 'Remote'
-    },
-    {
-      title: 'QA Tester',
-      description: 'Perform manual and automated testing to ensure product quality.',
-      location: 'Burgas, Bulgaria'
-    },
-    {
-      title: 'Mobile App Developer',
-      description: 'Develop Android/iOS apps using Flutter or React Native.',
-      location: 'Remote'
-    },
-    {
-      title: 'Project Manager',
-      description: 'Lead agile teams and ensure timely delivery of milestones.',
-      location: 'Sofia, Bulgaria'
-    } ];
+  searchTerm: string = '';
+  currentPage: number = 1;
+  pageSize: number = 3;
 
-  currentPage = 1;
-  pageSize = 3;
+  jobs = [
+    { title: 'Frontend Developer', description: 'Create responsive UIs using Angular.', location: 'Remote' },
+    { title: 'Backend Developer', description: 'Build APIs with .NET Core.', location: 'Sofia' },
+    { title: 'UI/UX Designer', description: 'Design clean and usable interfaces.', location: 'Plovdiv' },
+    { title: 'Data Analyst', description: 'Analyze and visualize business data.', location: 'Varna' },
+    { title: 'DevOps Engineer', description: 'Manage CI/CD pipelines and deployments.', location: 'Remote' },
+    { title: 'QA Tester', description: 'Test web and mobile applications.', location: 'Burgas' },
+    { title: 'Mobile Developer', description: 'Develop apps using Flutter.', location: 'Remote' },
+    { title: 'Project Manager', description: 'Lead software development teams.', location: 'Sofia' }
+  ];
+
+  get filteredJobs() {
+    return this.jobs.filter(job =>
+      job.title.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      job.location.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
 
   get paginatedJobs() {
     const start = (this.currentPage - 1) * this.pageSize;
-    return this.jobs.slice(start, start + this.pageSize);
+    return this.filteredJobs.slice(start, start + this.pageSize);
   }
 
   get totalPages() {
-    return Math.ceil(this.jobs.length / this.pageSize);
+    return Math.ceil(this.filteredJobs.length / this.pageSize);
   }
 
   changePage(direction: 'prev' | 'next') {
@@ -70,3 +49,4 @@ export class JobListComponent {
     }
   }
 }
+
