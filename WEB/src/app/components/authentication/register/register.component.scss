@@ -1,0 +1,37 @@
+﻿.register-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 2rem;
+  background: #f9f9f9;
+  border-radius: 10px;
+
+  input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  button {
+    margin-top: 20px;
+    width: 100%;
+    background-color: #d36f6f;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .success {
+    color: green;
+    margin-top: 10px;
+  }
+
+  .error {
+    color: red;
+    margin-top: 10px;
+  }
+}

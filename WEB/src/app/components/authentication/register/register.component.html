@@ -1,0 +1,26 @@
+﻿<div class="register-container">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h2>Register</h2>
+
+    <input formControlName="firstName" placeholder="First Name" />
+    <input formControlName="lastName" placeholder="Last Name" />
+    <input formControlName="email" placeholder="Email" />
+    <input formControlName="password" type="password" placeholder="Password" />
+    <input formControlName="phoneNumber" placeholder="Phone Number" />
+    <input formControlName="address" placeholder="Address" />
+    <input formControlName="city" placeholder="City" />
+    <input formControlName="dateOfBirth" type="date" />
+    <input formControlName="education" placeholder="Education" />
+    <input formControlName="workExperience" placeholder="Work Experience" />
+
+    <select formControlName="role">
+      <option value="Candidate">Candidate</option>
+      <option value="Admin">Admin</option>
+    </select>
+
+    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+
+    <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </form>
+</div>
