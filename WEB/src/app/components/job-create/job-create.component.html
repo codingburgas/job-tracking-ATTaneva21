@@ -1,0 +1,10 @@
+<div class="job-create-container">
+  <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+    <h2>Create a Job</h2>
+
+    <input formControlName="title" placeholder="Job Title" />
+    <textarea formControlName="description" placeholder="Job Description"></textarea>
+    <input formControlName="location" placeholder="Location" />
+    <button type="submit" [disabled]="jobForm.invalid">Post Job</button>
+  </form>
+</div>

@@ -1,26 +1,32 @@
-﻿<div class="register-container">
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <h2>Register</h2>
+﻿<div class="register-page">
+  <div class="register-left">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+      <h2>REGISTER</h2>
 
-    <input formControlName="firstName" placeholder="First Name" />
-    <input formControlName="lastName" placeholder="Last Name" />
-    <input formControlName="email" placeholder="Email" />
-    <input formControlName="password" type="password" placeholder="Password" />
-    <input formControlName="phoneNumber" placeholder="Phone Number" />
-    <input formControlName="address" placeholder="Address" />
-    <input formControlName="city" placeholder="City" />
-    <input formControlName="dateOfBirth" type="date" />
-    <input formControlName="education" placeholder="Education" />
-    <input formControlName="workExperience" placeholder="Work Experience" />
+      <div class="form-row">
+        <input formControlName="firstName" placeholder="FirstName" />
+        <input formControlName="lastName" placeholder="Last Name" />
+      </div>
 
-    <select formControlName="role">
-      <option value="Candidate">Candidate</option>
-      <option value="Admin">Admin</option>
-    </select>
+      <input formControlName="address" placeholder="Address" />
 
-    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+      <div class="form-row">
+        <input formControlName="city" placeholder="City" />
+        <input formControlName="dateOfBirth" type="date" placeholder="dd/mm/yyyy" />
+      </div>
 
-    <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
-    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
-  </form>
+      <input formControlName="education" placeholder="Education" />
+      <input formControlName="workExperience" placeholder="Prior work experience" />
+      <input formControlName="role" placeholder="Role" />
+
+      <div class="form-buttons">
+        <button type="submit" class="btn solid">Register</button>
+        <a routerLink="/login" class="btn ghost">Login</a>
+      </div>
+    </form>
+  </div>
+
+  <div class="register-right">
+    <div class="logo">JT</div>
+  </div>
 </div>

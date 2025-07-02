@@ -1,0 +1,38 @@
+.job-create-container {
+  padding: 2rem;
+  max-width: 600px;
+  margin: auto;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    h2 {
+      text-align: center;
+      color: #a15030;
+    }
+
+    input,
+    textarea {
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #d36f6f;
+      color: white;
+      padding: 0.75rem;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+
+      &:hover {
+        background-color: #c45757;
+      }
+    }
+  }
+}
