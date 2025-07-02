@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using JobTracking.Application.Contracts;
+using JobTracking.Application.Contracts.Base;
 using JobTracking.Application.Implementation;
 using JobTracking.DataAccess;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -104,6 +105,7 @@ namespace JobTracking.API
 
         public static void AddServices(this WebApplicationBuilder builder)
         {
+            builder.Services.AddScoped<DependencyProvider>();
             builder.Services.AddScoped<IJobService, JobService>();
             builder.Services.AddScoped<IUserService, UserService>();
         }

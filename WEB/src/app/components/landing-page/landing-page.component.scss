@@ -1,0 +1,69 @@
+.landing-container {
+  height: 100vh;
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+  background: #ffffff;
+}
+
+.landing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #d46d63;
+  }
+
+  .auth-buttons {
+    display: flex;
+    gap: 1rem;
+
+    .btn {
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      font-weight: bold;
+      text-decoration: none;
+      border: 2px solid #d46d63;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .register {
+      background-color: #d46d63;
+      color: white;
+    }
+
+    .signin {
+      background-color: transparent;
+      color: #d46d63;
+    }
+
+    .btn:hover {
+      opacity: 0.8;
+      transform: translateY(-1px);
+    }
+  }
+}
+
+.landing-main {
+  margin-top: 0 !important;
+  padding-top: 1rem !important;
+  position: relative;
+  top: -400px;
+  text-align: left;
+
+  h1 {
+    font-size: 5rem;
+    padding-right: 40rem;
+    padding-left: 10rem;
+    font-weight: bold;
+    color: #222;
+
+    .highlight {
+      color: #b9673c;
+    }
+  }
+}
