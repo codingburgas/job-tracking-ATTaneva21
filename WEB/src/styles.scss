@@ -1,0 +1,67 @@
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 2rem;
+  background: white;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: #d36f6f;
+    }
+
+    .auth-buttons {
+      button {
+        border: none;
+        padding: 0.5rem 1rem;
+        margin-left: 1rem;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .register {
+        background-color: #d36f6f;
+        color: white;
+      }
+
+      .signin {
+        background-color: transparent;
+        color: #d36f6f;
+        border: 2px solid #fbdcd3;
+      }
+    }
+  }
+  .main-text {
+    margin-top: 0 !important;
+    padding-top: 1rem !important;
+    position: relative;
+    top: -400px;
+    text-align: left;
+
+    h1 {
+      font-size: 5rem;
+      padding-right: 40rem;
+      padding-left: 10rem;
+      font-weight: bold;
+
+      .highlight {
+        color: #b86640;
+      }
+    }
+
+  .main-text {
+    text-align: left;
+    margin-top: 5rem;
+    padding-left: 1rem;
+    }
+  }
+}
