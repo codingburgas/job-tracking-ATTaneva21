@@ -2,9 +2,9 @@
   <h2>User Profile</h2>
 
   <div class="profile-card">
-    <p><strong>Name:</strong> Jane Doe</p>
-    <p><strong>Email:</strong> jane@example.com</p>
-    <p><strong>Education:</strong> MSc Computer Science</p>
-    <p><strong>Experience:</strong> 3 years in software development</p>
+    <p><strong>Name:</strong> {{ user.firstName }} {{ user.lastName }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Education:</strong> {{ user.education }}</p>
+    <p><strong>Experience:</strong> {{ user.experience }}</p>
   </div>
 </div>
