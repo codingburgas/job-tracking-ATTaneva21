@@ -17,27 +17,28 @@
       color: #d36f6f;
     }
 
-    .auth-buttons {
-      button {
-        border: none;
-        padding: 0.5rem 1rem;
-        margin-left: 1rem;
-        border-radius: 20px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background 0.3s ease;
-      }
+    .auth-buttons a {
+      display: inline-block;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      margin-left: 1rem;
+      border-radius: 20px;
+      font-weight: bold;
+      font-family: inherit;
+      font-size: inherit;
+      cursor: pointer;
+    }
 
-      .register {
-        background-color: #d36f6f;
-        color: white;
-      }
+    .auth-buttons .register {
+      background-color: #d36f6f;
+      color: white;
+      border: none;
+    }
 
-      .signin {
-        background-color: transparent;
-        color: #d36f6f;
-        border: 2px solid #fbdcd3;
-      }
+    .auth-buttons .signin {
+      background-color: transparent;
+      color: #d36f6f;
+      border: 2px solid #fbdcd3;
     }
   }
   .main-text {
